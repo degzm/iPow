@@ -31,13 +31,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mapFragment.getMapAsync(this);
     }
 
-    /**
+    /*
      * Metodo para manipular el mapa cuando este listo.
      * Aqui se agregan los marcadores y se comprueban los
      * permisos para usar estos mismos.
      */
     @Override
-    public void onMapReady(final GoogleMap googleMap) {
+    public void onMapReady(GoogleMap googleMap) {
         //El mapa inicia en este geo punto
 
         //Se cambiara a la ubicacion proximamente
@@ -51,9 +51,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         //Prende la ubicacion en tiempo real
         googleMap.setMyLocationEnabled(true);
         //Marcadores
-        googleMap.addMarker(new MarkerOptions()
-                .position(new LatLng(25.4439803, -100.8597785))
-                .title("Entrada CU ").snippet("Solar"));
+        googleMap.addMarker(new MarkerOptions().position(new LatLng(25.4439803, -100.8597785 ))
+                .title("CU Entrada").snippet("Solar"));
+
         //Aqui se crea el dialogo al dar click en el marcador
         googleMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
             public boolean onMarkerClick(final Marker marker) {
