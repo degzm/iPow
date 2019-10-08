@@ -39,6 +39,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public void onMapReady(final GoogleMap googleMap) {
         //El mapa inicia en este geo punto
+
         //Se cambiara a la ubicacion proximamente
         googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(25.4439803, -100.8597785),14.0f));
         Log.e("TAG", "onMapReady");
