@@ -25,7 +25,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
-        // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
@@ -39,9 +38,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public void onMapReady(GoogleMap googleMap) {
         //El mapa inicia en este geo punto
-
-        //Se cambiara a la ubicacion proximamente
-        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(25.4439803, -100.8597785),14.0f));
         Log.e("TAG", "onMapReady");
         //Comprueba que se tengan los permisos de ubicacion, de lo contrario los pide
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
@@ -50,6 +46,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                         != PackageManager.PERMISSION_GRANTED) return;
         //Prende la ubicacion en tiempo real
         googleMap.setMyLocationEnabled(true);
+        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(25.4439803, -100.8597785),14.0f));
         //Marcadores
         googleMap.addMarker(new MarkerOptions().position(new LatLng(25.4439803, -100.8597785 ))
                 .title("CU Entrada").snippet("Solar"));
