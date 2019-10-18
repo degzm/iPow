@@ -6,7 +6,7 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="74dp"
+        android:layout_height="117dp"
         android:background="#013A34" />
 
     <LinearLayout
@@ -17,10 +17,10 @@
 
         <TextView
             android:id="@+id/tv1"
-            android:layout_width="match_parent"
+            android:layout_width="377dp"
             android:layout_height="wrap_content"
             android:text="@string/centro_de_carga"
-            android:textAlignment="center"
+            android:textAlignment="gravity"
             android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
 
         <TextView
@@ -29,7 +29,7 @@
             android:layout_height="84dp"
             android:layout_marginTop="10dp"
             android:text="@string/informacion"
-            android:textAlignment="center"
+            android:textAlignment="gravity"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
 
