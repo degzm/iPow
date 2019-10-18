@@ -1,7 +1,20 @@
 package dev.deg.ipow;
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.FragmentActivity;
+
+import android.content.Context;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
+import android.os.Bundle;
+import android.view.View;
+import com.google.android.gms.maps.CameraUpdate;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
 
 import android.Manifest;
 import android.app.Dialog;
@@ -19,8 +32,11 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
+import java.util.Objects;
+
+public class MapsActivity extends FragmentActivity implements OnMapReadyCallback{
     final Context context = this;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,16 +53,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
      */
     @Override
     public void onMapReady(GoogleMap googleMap) {
-        //El mapa inicia en este geo punto
-        Log.e("TAG", "onMapReady");
         //Comprueba que se tengan los permisos de ubicacion, de lo contrario los pide
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
-                != PackageManager.PERMISSION_GRANTED &&
-                ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION)
-                        != PackageManager.PERMISSION_GRANTED) return;
         //Prende la ubicacion en tiempo real
         googleMap.setMyLocationEnabled(true);
-        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(25.4439803, -100.8597785),14.0f));
+        //Activa el boton del zoom del mapa
+        googleMap.getUiSettings().setZoomControlsEnabled( true );
         //Marcadores
         googleMap.addMarker(new MarkerOptions().position(new LatLng(25.4439803, -100.8597785 ))
                 .title("CU Entrada").snippet("Solar"));
