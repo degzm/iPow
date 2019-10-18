@@ -43,11 +43,17 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 != PackageManager.PERMISSION_GRANTED &&
                 ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION)
                         != PackageManager.PERMISSION_GRANTED) return;
-        
+
         //Prende la ubicacion en tiempo real
         googleMap.setMyLocationEnabled(true);
         //Activa el boton del zoom del mapa
         googleMap.getUiSettings().setZoomControlsEnabled( true );
+        //Activa el toolbar del mapa
+        googleMap.getUiSettings().setMapToolbarEnabled(true);
+        //Activa el boton para rotar el mapa
+        googleMap.getUiSettings().setRotateGesturesEnabled(true);
+        //Activa el compas en el mapa
+        googleMap.getUiSettings().setCompassEnabled(true);
         //Marcadores
         googleMap.addMarker(new MarkerOptions().position(new LatLng(25.4439803, -100.8597785 ))
                 .title("CU Entrada").snippet("Solar"));
