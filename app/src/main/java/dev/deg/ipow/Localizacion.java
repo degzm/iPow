@@ -8,6 +8,9 @@ import android.util.Log;
 
 public class Localizacion implements LocationListener {
     MapsActivity mapsActivity;
+    double latitud;
+    double longitud;
+
     public MapsActivity getMapsActivity() {
         return mapsActivity;
     }
@@ -16,17 +19,18 @@ public class Localizacion implements LocationListener {
     }
     @Override
     public void onLocationChanged(Location loc) {
-        // Este metodo se ejecuta cada vez que el GPS recibe nuevas coordenadas
-        // debido a la deteccion de un cambio de ubicacion
         loc.getLatitude();
         loc.getLongitude();
         String sLatitud = String.valueOf(loc.getLatitude());
         String sLongitud = String.valueOf(loc.getLongitude());
+        latitud = loc.getLatitude();
+        longitud = loc.getLongitude();
     }
     @Override
     public void onProviderDisabled(String provider) {
         // Este metodo se ejecuta cuando el GPS es desactivado
         //latitud.setText("GPS Desactivado");
+
     }
     @Override
     public void onProviderEnabled(String provider) {
