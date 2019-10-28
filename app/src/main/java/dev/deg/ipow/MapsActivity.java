@@ -32,20 +32,20 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
-                .findFragmentById(R.id.map);
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         if (mapFragment != null) {
             mapFragment.getMapAsync(this);
         }
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED){
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION,}, 1000);
-        }else{
-            LocationManager locationManager = (LocationManager)
-                    getSystemService(Context.LOCATION_SERVICE);
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION,}, 1000);
+        }
+        else{
+            LocationManager locationManager = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
             Criteria criteria = new Criteria();
             if (locationManager != null) {
-                location = locationManager.getLastKnownLocation(Objects.requireNonNull(
-                           locationManager.getBestProvider(criteria, false)));
+                location = locationManager.getLastKnownLocation(Objects.requireNonNull(locationManager.getBestProvider(criteria, false)));
             }
         }
     }
@@ -55,7 +55,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         latitud = location.getLatitude();
         longitud = location.getLongitude();
         LatLng ubi = new LatLng(latitud,longitud);
-        mapa.moveCamera(CameraUpdateFactory.newLatLngZoom(ubi,7));
+        mapa.moveCamera(CameraUpdateFactory.newLatLngZoom(ubi,14));
 
         mapa.setMyLocationEnabled(true);
         mapa.getUiSettings().setZoomControlsEnabled( true );
