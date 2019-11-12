@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.pm.PackageManager;
 import android.location.Criteria;
 import android.location.Location;
+import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.widget.TextView;
@@ -26,13 +27,27 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     final Context context = this;
     Location location;
 
+    double latitud = 0;
+    double longitud = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
+
         if (mapFragment != null) {
             mapFragment.getMapAsync(this);
+        }
+
+        int fineLocation = ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION);
+        int coarseLocation = ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION);
+
+        if(fineLocation != PackageManager.PERMISSION_GRANTED){
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION,}, 1);
+        }
+        if(coarseLocation != PackageManager.PERMISSION_GRANTED){
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION,}, 1);
         }
     }
 
@@ -51,26 +66,26 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         dialog.show();
     }
 
+
     @Override
     public void onMapReady(GoogleMap mapa) {
-        double latitud = 0;
-        double longitud = 0;
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED){
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION,}, 1000);
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION,}, 1000);
-            latitud = location.getLatitude();
-            longitud = location.getLongitude();
-            mapa.setMyLocationEnabled(true);
-        }
-        else{
-            LocationManager locationManager = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
-            Criteria criteria = new Criteria();
-            if (locationManager != null) {
-                location = locationManager.getLastKnownLocation(Objects.requireNonNull(locationManager.getBestProvider(criteria, false)));
+        LocationManager locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
+        LocationListener locationListener = new LocationListener() {
+            @Override
+            public void onLocationChanged(Location location) {
                 latitud = location.getLatitude();
                 longitud = location.getLongitude();
-                mapa.setMyLocationEnabled(true);
             }
+            @Override
+            public void onStatusChanged(String provider, int status, Bundle extras){}
+            @Override
+            public void onProviderEnabled(String provider){}
+            @Override
+            public void onProviderDisabled(String provider){}
+        };
+        int fineLocation = ActivityCompat.checkSelfPermission(MapsActivity.this, Manifest.permission.ACCESS_FINE_LOCATION);
+        if (locationManager != null) {
+            locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER,0,0,locationListener);
         }
 
         LatLng ubi = new LatLng(latitud,longitud);
