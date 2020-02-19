@@ -1,10 +1,9 @@
 package dev.deg.ipow
 import android.graphics.*
-import android.service.autofill.Transformation
 import com.squareup.picasso.Transformation
 
 // https://gist.github.com/codezjx/b8a99374385a0210edb9192bced516a3
-class CircleTransformation: Transformation {
+class CircleTransformation: com.squareup.picasso.Transformation {
     companion object {
         private val KEY = "circleImageTransformation"
     }
