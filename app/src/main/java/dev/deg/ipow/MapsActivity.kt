@@ -40,42 +40,14 @@ class MapsActivity : FragmentActivity(), OnMapReadyCallback {
         }
     }
 
-    fun mostrarDialogo(marker: Marker) {
-        val dialog = Dialog(context)
-        dialog.setContentView(R.layout.customdialog)
-        //Textview 1
-        val tv1 = dialog.findViewById<TextView>(R.id.tv1)
-        val nombre = marker.title
-        tv1.text = nombre
-        //Text view 2
-        val tv2 = dialog.findViewById<TextView>(R.id.tv2)
-        val snippet = marker.snippet
-        tv2.text = snippet
-        dialog.show()
-    }
-
     override fun onMapReady(mapa: GoogleMap) {
-        val locationManager = this.getSystemService(Context.LOCATION_SERVICE) as LocationManager
-        val locationListener: LocationListener = object : LocationListener {
-            override fun onLocationChanged(location: Location) {
-                latitud = location.latitude
-                longitud = location.longitude
-            }
-
-            override fun onStatusChanged(provider: String, status: Int, extras: Bundle) {}
-            override fun onProviderEnabled(provider: String) {}
-            override fun onProviderDisabled(provider: String) {}
-        }
-        val fineLocation = ActivityCompat.checkSelfPermission(this@MapsActivity, Manifest.permission.ACCESS_FINE_LOCATION)
-        locationManager?.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0f, locationListener)
-        val ubi = LatLng(latitud, longitud)
-        mapa.moveCamera(CameraUpdateFactory.newLatLngZoom(ubi, 18f))
+        //mapa.moveCamera(CameraUpdateFactory.newLatLngZoom(, 18f))
         mapa.uiSettings.isZoomControlsEnabled = true
         mapa.uiSettings.isMapToolbarEnabled = true
+
         mapa.addMarker(MarkerOptions().position(LatLng(25.4439803, -100.8597785))
                 .title("CU Entrada").snippet("Solar"))
         mapa.setOnMarkerClickListener { marker ->
-            mostrarDialogo(marker)
             true
         }
     }
